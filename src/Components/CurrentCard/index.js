@@ -12,7 +12,7 @@ function CurrentCard({ deckID }) {
   const [cardImage, setCardImage] = useState("");
   const [cardValue, setCardValue] = useState(0);
   const [previousValue, setPreviousValue] = useState(0);
-  const [count, setCount] = useState(0);
+  let [count, setCount] = useState(0);
 
   useEffect(() => {
     async function getFirstCard() {
@@ -74,29 +74,77 @@ function CurrentCard({ deckID }) {
   }
 
   function continueGameStateHigher() {
+    setPreviousValue(cardValue);
     console.log(previousValue, cardValue);
     if (previousValue < cardValue) {
-      setCount(count + 1);
-      console.log(previousValue, "higher than", cardValue);
+      console.log("count before", count);
+      setCount((count += 1));
+      console.log("count after", count);
+      console.log(
+        previousValue,
+        "lower than",
+        cardValue,
+        "and higher was clicked"
+      );
     }
     if (previousValue === cardValue) {
-      setCount(count + 1);
-      console.log(previousValue, "is equal", cardValue);
+      console.log("count before", count);
+      setCount((count += 1));
+      console.log("count after", count);
+      console.log(
+        previousValue,
+        "is equal",
+        cardValue,
+        "and higher was clicked"
+      );
     }
     if (previousValue > cardValue) {
       setCount(0);
-      console.log(previousValue, "is less than", cardValue);
+      console.log(
+        previousValue,
+        "is higher than",
+        cardValue,
+        "and higher was clicked"
+      );
     }
+    getNewCard();
   }
 
   function continueGameStateLower() {
+    setPreviousValue(cardValue);
     console.log(previousValue, cardValue);
-    if (previousValue >= cardValue) {
-      setCount(count + 1);
-    } else {
-      console.log("THE GAME WILL STOP AS THE CARD WAS HIGHER");
-      setCount(0);
+    if (previousValue > cardValue) {
+      console.log("count before", count);
+      setCount((count += 1));
+      console.log("count after", count);
+      console.log(
+        previousValue,
+        "is higher than",
+        cardValue,
+        " and lower was clicked"
+      );
     }
+    if (previousValue === cardValue) {
+      console.log("count before", count);
+      setCount((count += 1));
+      console.log("count after", count);
+      console.log(
+        previousValue,
+        "is equal",
+        cardValue,
+        " and lower was clicked"
+      );
+    }
+    if (previousValue < cardValue) {
+      setCount(0);
+      console.log(
+        previousValue,
+        "is lower than",
+        cardValue,
+        " and lower was clicked"
+      );
+    }
+    getNewCard();
   }
 
   return (
