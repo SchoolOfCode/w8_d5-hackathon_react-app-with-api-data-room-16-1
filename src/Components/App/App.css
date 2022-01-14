@@ -63,8 +63,68 @@ button:hover {
 }
 
 div {
-  background-color: rgb(187, 230, 222);
+  background-color: rgb(48, 136, 52);
   margin: 1em 10em;
   border-radius: 1em;
   padding: 5px;
+}
+
+.title {
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  -webkit-text-stroke: 1px black;
+  font-size: 3em;
+}
+
+p {
+  font-weight: 800;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  font-size: 1.5em;
+}
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1.2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+img:hover {
+  animation: zoominoutsinglefeatured 1s infinite;
+  top: 50%;
+  left: 50%;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+}
+
+.rotate:hover {
+  top: 50%;
+  left: 50%;
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
 }

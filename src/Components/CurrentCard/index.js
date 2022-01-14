@@ -1,3 +1,8 @@
+// GETTING THE FIRST VALUE AND STORE THAT
+// WHEN HIGHER OR LOWER PRESSED, WE ARE GOING TO SET THE VALUE TO A NEW VALUE
+// CHECK THE FIRST VALUE AND THE NEW VALUE
+// NEXT TIME ONE OF BUTTONS PRESSED, SET A PREVIOUS VALUE
+
 import { useState, useEffect } from "react";
 
 import Button from "../Button";
@@ -7,7 +12,6 @@ function CurrentCard({ deckID }) {
   const [cardImage, setCardImage] = useState("");
   const [cardValue, setCardValue] = useState(0);
   const [previousValue, setPreviousValue] = useState(0);
-  const [continueGame, setContinueGame] = useState(true);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -16,7 +20,7 @@ function CurrentCard({ deckID }) {
         `http://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`
       );
       const data = await response.json();
-      console.log(data);
+      //   console.log(data);
       setCard(data);
       setCardImage(data.cards.image);
 
@@ -32,8 +36,11 @@ function CurrentCard({ deckID }) {
       if (data.cards[0].value === "JACK") {
         data.cards[0].value = 11;
       }
-      setPreviousValue(data.cards[0].value);
-      setCardValue(data.cards[0].value);
+
+      console.log(
+        parseInt(data.cards[0].value),
+        " - value of card on first render"
+      );
       setCardValue(parseInt(data.cards[0].value));
 
       //   console.log(cardImage);
@@ -42,6 +49,8 @@ function CurrentCard({ deckID }) {
   }, [deckID]);
 
   async function getNewCard() {
+    console.log(cardValue);
+    setPreviousValue(cardValue);
     const response = await fetch(
       `http://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`
     );
@@ -65,25 +74,26 @@ function CurrentCard({ deckID }) {
   }
 
   function continueGameStateHigher() {
-    setPreviousValue(cardValue);
-    getNewCard();
-
+    console.log(previousValue, cardValue);
     if (previousValue < cardValue) {
       setCount(count + 1);
-    } else {
-      setContinueGame(false);
-      console.log("THE GAME WILL STOP AS THE CARD WAS LOWER");
+      console.log(previousValue, "higher than", cardValue);
+    }
+    if (previousValue === cardValue) {
+      setCount(count + 1);
+      console.log(previousValue, "is equal", cardValue);
+    }
+    if (previousValue > cardValue) {
       setCount(0);
+      console.log(previousValue, "is less than", cardValue);
     }
   }
-  function continueGameStateLower() {
-    setPreviousValue(cardValue);
-    getNewCard();
 
-    if (previousValue > cardValue) {
+  function continueGameStateLower() {
+    console.log(previousValue, cardValue);
+    if (previousValue >= cardValue) {
       setCount(count + 1);
     } else {
-      setContinueGame(false);
       console.log("THE GAME WILL STOP AS THE CARD WAS HIGHER");
       setCount(0);
     }
