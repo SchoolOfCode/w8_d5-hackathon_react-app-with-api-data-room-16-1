@@ -1,5 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import CurrentCard from "../CurrentCard/index";
 
 function App() {
   const [deckID, setDeckID] = useState("");
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <p>{deckID}</p>
+      <CurrentCard deckID={deckID} />
     </div>
   );
 }
