@@ -7,7 +7,9 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+body {
+  background-color: #0c042e;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -61,7 +63,7 @@ button:hover {
 }
 
 div {
-  background-color: rgb(195, 223, 219);
+  background-color: rgb(187, 230, 222);
   margin: 1em 10em;
   border-radius: 1em;
   padding: 5px;
